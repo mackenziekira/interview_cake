@@ -14,7 +14,7 @@ def get_max_profit(stock_prices_yesterday):
     0
 
     >>> get_max_profit([10, 9, 8, 7])
-    0
+    -1
 
     >>> get_max_profit([])
     'input must be a list of at least 2 or more stock prices'
@@ -31,14 +31,25 @@ def get_max_profit(stock_prices_yesterday):
             max_price = price
             index_of_max_price = ind
 
-    min_price = stock_prices_yesterday[0]
+    if not index_of_max_price:
+        min_price = stock_prices_yesterday[1]
 
-    for x in xrange(index_of_max_price):
-        price = stock_prices_yesterday[x]
-        if price < min_price:
-            min_price = price
+        for x in xrange(1, len(stock_prices_yesterday)):
+            price = stock_prices_yesterday[x]
+            if price > min_price:
+                min_price = price
 
-    return max_price - min_price
+        return min_price - max_price
+
+    else:
+        min_price = stock_prices_yesterday[0]
+
+        for x in xrange(index_of_max_price):
+            price = stock_prices_yesterday[x]
+            if price < min_price:
+                min_price = price
+
+        return max_price - min_price
 
 
 if __name__ == "__main__":
