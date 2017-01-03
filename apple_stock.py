@@ -23,33 +23,20 @@ def get_max_profit(stock_prices_yesterday):
     if not stock_prices_yesterday or len(stock_prices_yesterday) < 2:
         return 'input must be a list of at least 2 or more stock prices'
 
-    max_price = stock_prices_yesterday[0]
-    index_of_max_price = 0
+    min_price = stock_prices_yesterday[0]
+    max_profit = stock_prices_yesterday[1] - stock_prices_yesterday[0]
 
     for ind, price in enumerate(stock_prices_yesterday):
-        if price >= max_price:
-            max_price = price
-            index_of_max_price = ind
+        if ind == 0:
+            continue
 
-    if not index_of_max_price:
-        min_price = stock_prices_yesterday[1]
+        current_profit = price - min_price
 
-        for x in xrange(1, len(stock_prices_yesterday)):
-            price = stock_prices_yesterday[x]
-            if price > min_price:
-                min_price = price
+        min_price = min(min_price, price)
 
-        return min_price - max_price
+        max_profit = max(max_profit, current_profit)
 
-    else:
-        min_price = stock_prices_yesterday[0]
-
-        for x in xrange(index_of_max_price):
-            price = stock_prices_yesterday[x]
-            if price < min_price:
-                min_price = price
-
-        return max_price - min_price
+    return max_profit
 
 
 if __name__ == "__main__":
