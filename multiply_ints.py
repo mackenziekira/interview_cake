@@ -6,7 +6,12 @@ def multiply_ints(list_of_ints):
 
     """
 
-    
+    totals = [1 for num in list_of_ints]
+    for ind, num in enumerate(list_of_ints):
+        for m, multiplier in enumerate(list_of_ints):
+            if m != ind:
+                totals[ind] *= multiplier 
+    return totals
 
 if __name__ == "__main__":
     import doctest
