@@ -5,28 +5,24 @@ def multiply_ints(list_of_ints):
     [84, 12, 28, 21]
 
     """
-
-    # totals = [1 for num in list_of_ints]
-    # for ind, num in enumerate(list_of_ints):
-    #     for m, multiplier in enumerate(list_of_ints):
-    #         if m != ind:
-    #             totals[ind] *= multiplier 
-
-    pre = preproduct_tally(list_of_ints)
-    post = reversed(preproduct_tally(reversed(list_of_ints)))
-
-    return [x * y for x, y in zip(pre, post)]
-
-def preproduct_tally(list_of_ints):
-    """keeps a running tally of product preceeding each item in a list"""
-
+    products_of_all_ints_before_ind = [None] * len(list_of_ints)
     preproduct = 1
-    totals = []
-    for num in list_of_ints:
-        totals.append(preproduct)
+    
+    for idx, num in enumerate(list_of_ints):
+        products_of_all_ints_before_ind[idx] = preproduct
         preproduct *= num
 
-    return totals
+
+    products_of_all_ints_after_ind = [None] * len(list_of_ints)
+    postproduct = 1
+
+    for idx in xrange(len(list_of_ints) - 1, -1, -1):
+        products_of_all_ints_after_ind[idx] = postproduct
+        postproduct *= list_of_ints[idx]
+
+    return products_of_all_ints_after_ind
+
+
 
 if __name__ == "__main__":
     import doctest
