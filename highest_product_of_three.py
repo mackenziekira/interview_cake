@@ -10,16 +10,27 @@ def highest_product_of_three(my_list):
     >>> highest_product_of_three([1, 2, 3, 4])
     24
 
-    """
-    max_product = None
+    >>> highest_product_of_three([1, 10, -5, 1, -100])
+    5000
 
-    for x in xrange(len(my_list) - 2):
-        for y in xrange(1, len(my_list) - 1):
-            for z in xrange(2, len(my_list)):
-                product = my_list[x] * my_list[y] * my_list[z]
-                if product > max_product:
-                    max_product = product
-    return max_product
+    """
+    max_product_of_three = my_list[0] * my_list[1] * my_list[2]
+    max_product_of_two = my_list[0] * my_list[1]
+    min_product_of_two = my_list[0] * my_list[1]
+    lowest_num = my_list[0]
+    highest_num = my_list[0]
+
+
+    for num in my_list:
+        max_product_of_three = max(max_product_of_three, min_product_of_two * num, max_product_of_two * num)
+        max_product_of_two = max(max_product_of_two, highest_num * num, lowest_num * num)
+        min_product_of_two = min(min_product_of_two, highest_num * num, lowest_num * num)
+        lowest_num = min(lowest_num, num)
+        highest_num = max(highest_num, num)
+
+
+    
+    return max_product_of_three
 
 
 
