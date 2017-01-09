@@ -16,8 +16,9 @@ def highest_product_of_three(my_list):
     for x in xrange(len(my_list) - 2):
         for y in xrange(1, len(my_list) - 1):
             for z in xrange(2, len(my_list)):
-                if x * y * z > max_product:
-                    max_product = x * y * z
+                product = my_list[x] * my_list[y] * my_list[z]
+                if product > max_product:
+                    max_product = product
     return max_product
 
 
