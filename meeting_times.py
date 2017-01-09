@@ -6,6 +6,18 @@ def meeting_times(list_of_meeting_times):
 
     >>> meeting_times([(0, 1), (3, 5), (4, 8), (10, 12), (9, 10), (9, 10)])
     [(0, 1), (3, 8), (9, 12)]
+
+    >>> meeting_times([(1, 2), (2, 3)])
+    [(1, 3)]
+
+    >>> meeting_times([(1, 5), (2, 3)])
+    [(1, 5)]
+
+    >>> meeting_times([(1, 10), (2, 6), (3, 5), (7, 9)])
+    [(1, 10)]
+
+    >>> meeting_times([(1, 10), (2, 6), (3, 5), (7, 21)])
+    [(1, 21)]
     """
 
     list_of_meeting_times.sort()
