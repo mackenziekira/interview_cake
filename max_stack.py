@@ -31,6 +31,17 @@ class MaxStack(Stack):
     def get_max(self):
         """get max num from a stack
 
+        >>> a = MaxStack()
+        >>> a.push(5)
+        >>> a.push(9)
+        >>> a.push(11)
+        >>> a.push(1)
+        >>> print a.get_max()
+        11
+
+        >>> a = MaxStack()
+        >>> print a.get_max()
+        None
         """
         max_item = None
 
@@ -40,12 +51,9 @@ class MaxStack(Stack):
 
         return max_item
 
-a = MaxStack()
-a.push(5)
-a.push(9)
-a.push(11)
-a.push(1)
-print a.get_max()
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
 
 
 
