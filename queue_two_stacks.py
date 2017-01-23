@@ -29,7 +29,7 @@ class Queue(object):
     def dequeue(self):
         """pop a number off the front of the queue
         """
-        if self._outstack != []:
+        if self._outstack:
             return self._outstack.pop()
 
         while self._instack:
