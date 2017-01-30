@@ -23,23 +23,21 @@ class Stack(object):
         return self.items[-1]
 
 
-class MaxStack(Stack):
+class MaxStack(object):
 
     def __init__(self):
-        super(MaxStack, self).__init__()
+        self.stack = Stack()
         self.max_stack = Stack()
 
     def push(self, item):
-        self.items.append(item)
-        if not self.max_stack.peek() or item >= self.max_stack.peek():
+        self.stack.push(item)
+        if self.max_stack.peek() is None or item >= self.max_stack.peek():
             self.max_stack.push(item)
 
     def pop(self):
-        if not self.items:
-            return None
-        if self.items[-1] == self.max_stack.peek():
+        if self.stack.peek() == self.max_stack.peek():
             self.max_stack.pop()
-        return self.items.pop()
+        return self.stack.pop()
 
     def get_max(self):
         """get max num from a stack
@@ -55,6 +53,13 @@ class MaxStack(Stack):
         >>> a = MaxStack()
         >>> print a.get_max()
         None
+
+        >>> a = MaxStack()
+        >>> a.push(0)
+        >>> a.push(0)
+        >>> a.push(-1)
+        >>> print a.get_max()
+        0
         """
         return self.max_stack.peek()
 
