@@ -9,6 +9,8 @@ def rectangular_love(rect1, rect2):
     >>> rectangular_love( {'left_x': 0, 'bottom_y': 0, 'width': 10, 'height': 10}, {'left_x': 2, 'bottom_y': 2, 'width': 2, 'height': 3}) == {'left_x': 2, 'bottom_y': 2, 'width': 2, 'height': 3}
     True
 
+    >>> rectangular_love( {'left_x': 0, 'bottom_y': 0, 'width': 10, 'height': 10}, {'left_x': 10, 'bottom_y': 2, 'width': 2, 'height': 3}) == {'left_x': None, 'bottom_y': 2, 'width': None, 'height': 3}
+    True
     """
     result = {}
 
