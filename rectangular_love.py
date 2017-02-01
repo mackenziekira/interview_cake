@@ -9,38 +9,46 @@ def rectangular_love(rect1, rect2):
     >>> rectangular_love( {'left_x': 0, 'bottom_y': 0, 'width': 10, 'height': 10}, {'left_x': 2, 'bottom_y': 2, 'width': 2, 'height': 3}) == {'left_x': 2, 'bottom_y': 2, 'width': 2, 'height': 3}
     True
 
-    >>> rectangular_love( {'left_x': 0, 'bottom_y': 0, 'width': 10, 'height': 10}, {'left_x': 10, 'bottom_y': 2, 'width': 2, 'height': 3}) == {'left_x': None, 'bottom_y': 2, 'width': None, 'height': 3}
+    >>> rectangular_love( {'left_x': 0, 'bottom_y': 0, 'width': 10, 'height': 10}, {'left_x': 10, 'bottom_y': 2, 'width': 2, 'height': 3}) == {'left_x': None, 'bottom_y': None, 'width': None, 'height': None}
     True
     """
-    result = {}
 
-    x = find_overlap({'lower_coordinate': rect1['left_x'], 'extent': rect1['width']}, {'lower_coordinate': rect2['left_x'], 'extent': rect2['width']})
+    left_x, width = find_overlap(rect1['left_x'], rect1['width'], rect2['left_x'], rect2['width'])
 
-    result['left_x'], result['width'] = x['lower_coordinate'], x['extent']
+    bottom_y, height = find_overlap(rect1['bottom_y'], rect1['height'], rect2['bottom_y'], rect2['height'])
 
-    y = find_overlap({'lower_coordinate': rect1['bottom_y'], 'extent': rect1['height']}, {'lower_coordinate': rect2['bottom_y'], 'extent': rect2['height']})
+    if width is None or height is None:
+        return {
+        'left_x': None,
+        'bottom_y': None,
+        'width': None,
+        'height': None
+        }
 
-    result['bottom_y'], result['height'] = y['lower_coordinate'], y['extent']
+    return {
+        'left_x': left_x,
+        'bottom_y': bottom_y,
+        'width': width,
+        'height': height
+    }
 
-    return result
-
-def find_overlap(line1, line2):
+def find_overlap(lower_coord1, extent1, lower_coord2, extent2):
     """
-    >>> find_overlap({'lower_coordinate': 1, 'extent': 10}, {'lower_coordinate': 0, 'extent': 2})
-    {'lower_coordinate': 1, 'extent': 1}
+    >>> find_overlap(1, 10, 0, 2)
+    [1, 1]
 
-    >>> find_overlap({'lower_coordinate': 5, 'extent': 4}, {'lower_coordinate': 0, 'extent': 6})
-    {'lower_coordinate': 5, 'extent': 1}
+    >>> find_overlap(5, 4, 0, 6)
+    [5, 1]
     """
-    highest_start_of_overlap = max(line1['lower_coordinate'], line2['lower_coordinate'])
-    line1_higher_coordinate = sum(line1.values())
-    line2_higher_coordinate = sum(line2.values())
-    lowest_end_of_overlap = min(line1_higher_coordinate, line2_higher_coordinate)
+    highest_start_of_overlap = max(lower_coord1, lower_coord2)
+    higher_coord1 = lower_coord1 + extent1
+    higher_coord2 = lower_coord2 + extent2
+    lowest_end_of_overlap = min(higher_coord1, higher_coord2)
 
     if highest_start_of_overlap >= lowest_end_of_overlap:
-        return {'lower_coordinate': None, 'extent': None}
+        return [None, None]
     else:
-        return {'lower_coordinate': highest_start_of_overlap, 'extent': lowest_end_of_overlap - highest_start_of_overlap}
+        return [highest_start_of_overlap, lowest_end_of_overlap - highest_start_of_overlap]
 
 
 
